@@ -1,0 +1,195 @@
+{
+  "easycom": {
+    "autoscan": true
+  },
+  "pages": [
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/register/index",
+      "style": {
+        "navigationBarTitleText": "注册账号",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "学习路径",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/challenge/dashboard",
+      "style": {
+        "navigationBarTitleText": "分层闯关",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/challenge/quiz",
+      "style": {
+        "navigationBarTitleText": "答题",
+        "navigationBarBackgroundColor": "#2C3E50",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/challenge/result",
+      "style": {
+        "navigationBarTitleText": "答题结果",
+        "navigationBarBackgroundColor": "#2C3E50",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/challenge/pk-lobby",
+      "style": {
+        "navigationBarTitleText": "PK匹配",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/challenge/pk-battle",
+      "style": {
+        "navigationBarTitleText": "PK对战",
+        "navigationBarBackgroundColor": "#2C3E50",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/poetry/index",
+      "style": {
+        "navigationBarTitleText": "古诗文",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/poetry/dictation-list",
+      "style": {
+        "navigationBarTitleText": "古诗文默写"
+      }
+    },
+    {
+      "path": "pages/poetry/dictation-write",
+      "style": {
+        "navigationBarTitleText": "默写作答",
+        "navigationBarBackgroundColor": "#F5F0E8",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/poetry/reading-categories",
+      "style": {
+        "navigationBarTitleText": "古诗文阅读"
+      }
+    },
+    {
+      "path": "pages/poetry/reading-poem",
+      "style": {
+        "navigationBarTitleText": "诗词赏析"
+      }
+    },
+    {
+      "path": "pages/poetry/reading-classical",
+      "style": {
+        "navigationBarTitleText": "文言文阅读"
+      }
+    },
+    {
+      "path": "pages/writing/index",
+      "style": {
+        "navigationBarTitleText": "写作训练",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/writing/practical-guide",
+      "style": {
+        "navigationBarTitleText": "应用文写作"
+      }
+    },
+    {
+      "path": "pages/writing/practical-check",
+      "style": {
+        "navigationBarTitleText": "格式检测"
+      }
+    },
+    {
+      "path": "pages/writing/regular-topic",
+      "style": {
+        "navigationBarTitleText": "审题练习"
+      }
+    },
+    {
+      "path": "pages/writing/regular-framework",
+      "style": {
+        "navigationBarTitleText": "作文框架"
+      }
+    },
+    {
+      "path": "pages/writing/regular-feedback",
+      "style": {
+        "navigationBarTitleText": "写作反馈"
+      }
+    },
+    {
+      "path": "pages/profile/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/profile/honor-board",
+      "style": {
+        "navigationBarTitleText": "荣誉榜"
+      }
+    },
+    {
+      "path": "pages/profile/wrong-book",
+      "style": {
+        "navigationBarTitleText": "错题本"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#E74C3C",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "学习路径"
+      },
+      {
+        "pagePath": "pages/challenge/dashboard",
+        "text": "闯关"
+      },
+      {
+        "pagePath": "pages/poetry/index",
+        "text": "古诗文"
+      },
+      {
+        "pagePath": "pages/writing/index",
+        "text": "写作"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "语文闯关",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F5F6FA"
+  }
+}
