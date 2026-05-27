@@ -42,6 +42,18 @@
       >
         {{ isLoading ? '登录中...' : '登 录' }}
       </button>
+
+      <view class="demo-section">
+        <text class="demo-divider">——— 或 ———</text>
+        <view class="demo-card" @tap="quickLogin">
+          <text class="demo-icon">🎓</text>
+          <view class="demo-info">
+            <text class="demo-title">一键体验</text>
+            <text class="demo-desc">学号 2024001，无需密码</text>
+          </view>
+          <text class="demo-arrow">→</text>
+        </view>
+      </view>
     </view>
 
     <view class="register-link" @tap="goRegister">
@@ -85,6 +97,15 @@ async function handleLogin() {
     uni.reLaunch({ url: '/pages/index/index' })
   } else {
     uni.showToast({ title: result.message, icon: 'none' })
+  }
+}
+
+async function quickLogin() {
+  isLoading.value = true
+  const result = await userStore.login('2024001', '123456')
+  isLoading.value = false
+  if (result.success) {
+    uni.reLaunch({ url: '/pages/index/index' })
   }
 }
 
@@ -171,6 +192,47 @@ function goRegister() {
 }
 .login-btn[disabled] {
   opacity: 0.7;
+}
+.demo-section {
+  margin-top: 48rpx;
+}
+.demo-divider {
+  display: block;
+  text-align: center;
+  font-size: $font-xs;
+  color: $text-hint;
+  margin-bottom: $spacing-lg;
+}
+.demo-card {
+  background: rgba(231, 76, 60, 0.06);
+  border: 2rpx dashed rgba(231, 76, 60, 0.3);
+  border-radius: $border-radius-lg;
+  padding: $spacing-md $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+.demo-icon {
+  font-size: 44rpx;
+}
+.demo-info {
+  flex: 1;
+}
+.demo-title {
+  font-size: $font-md;
+  font-weight: 600;
+  color: $primary;
+  display: block;
+}
+.demo-desc {
+  font-size: $font-xs;
+  color: $text-secondary;
+  display: block;
+  margin-top: 4rpx;
+}
+.demo-arrow {
+  font-size: $font-lg;
+  color: $primary;
 }
 .register-link {
   text-align: center;

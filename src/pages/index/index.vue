@@ -66,6 +66,31 @@
         </view>
       </view>
 
+      <!-- 每日例题 -->
+      <view class="examples-section" v-if="dailyExamples.length > 0">
+        <text class="section-label">📖 每日例题</text>
+        <view class="example-card" v-for="q in dailyExamples" :key="q.id">
+          <view class="example-header">
+            <text class="example-tag">{{ q.examPointName || '基础题' }}</text>
+            <text class="example-difficulty">{{ '⭐'.repeat(q.difficulty) }}</text>
+          </view>
+          <text class="example-stem">{{ q.stem }}</text>
+          <view class="example-options">
+            <text class="example-option" v-for="(opt, i) in q.options" :key="i">{{ opt }}</text>
+          </view>
+          <view class="example-answer" v-if="revealedAnswers[q.id]">
+            <text class="answer-label">答案：{{ q.options[q.correctIndex] }}</text>
+            <text class="answer-explain">{{ q.explanation }}</text>
+          </view>
+          <view class="example-footer">
+            <text class="reveal-btn" @tap="toggleReveal(q.id)">
+              {{ revealedAnswers[q.id] ? '▲ 收起解析' : '▼ 查看答案' }}
+            </text>
+          </view>
+        </view>
+        <button class="start-practice-btn" @tap="goPage('/pages/challenge/quiz')">开始练习 →</button>
+      </view>
+
       <view class="safe-area-bottom"></view>
     </scroll-view>
 
@@ -80,6 +105,9 @@ import { useUserStore } from '@/stores/user.js'
 import { useTierStore } from '@/stores/tier.js'
 import { useLearningPathStore } from '@/stores/learning-path.js'
 import { useAuthGuard } from '@/composables/useAuthGuard.js'
+import { questionBank } from '@/mock/questions.js'
+import { randomPick } from '@/mock/index.js'
+import { EXAM_POINTS } from '@/utils/constants.js'
 import TierBadge from '@/components/tier/TierBadge.vue'
 import KnowledgeHeatmap from '@/components/learning-path/KnowledgeHeatmap.vue'
 import CoachMessage from '@/components/learning-path/CoachMessage.vue'
@@ -91,12 +119,28 @@ const tierStore = useTierStore()
 const lpStore = useLearningPathStore()
 
 const statusBarHeight = ref(20)
+const dailyExamples = ref([])
+const revealedAnswers = ref({})
 
 uni.getSystemInfo({
   success: (res) => {
     statusBarHeight.value = res.statusBarHeight || 20
   }
 })
+
+function loadDailyExamples() {
+  const easyPool = questionBank.filter(q => q.difficulty <= 2)
+  const examPointMap = {}
+  EXAM_POINTS.forEach(ep => { examPointMap[ep.id] = ep.name })
+  dailyExamples.value = randomPick(easyPool, 3).map(q => ({
+    ...q,
+    examPointName: examPointMap[q.examPoint] || '基础题'
+  }))
+}
+
+function toggleReveal(qid) {
+  revealedAnswers.value[qid] = !revealedAnswers.value[qid]
+}
 
 function handleCoachAction() {
   const route = lpStore.aiSuggestion?.actionRoute
@@ -125,6 +169,7 @@ onMounted(() => {
   lpStore.fetchHeatmapData()
   lpStore.fetchAiSuggestion()
   lpStore.fetchPeerData()
+  loadDailyExamples()
 })
 </script>
 
@@ -199,5 +244,104 @@ onMounted(() => {
 
   .quick-icon { font-size: 44rpx; display: block; margin-bottom: $spacing-xs; }
   .quick-text { font-size: $font-sm; color: $text-primary; font-weight: 500; }
+}
+
+.examples-section {
+  padding: 0 $spacing-lg $spacing-lg;
+}
+
+.example-card {
+  background: #fff;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-sm;
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.example-tag {
+  font-size: $font-xs;
+  color: $primary;
+  background: rgba(231, 76, 60, 0.08);
+  padding: 4rpx 16rpx;
+  border-radius: 16rpx;
+}
+
+.example-difficulty {
+  font-size: $font-xs;
+}
+
+.example-stem {
+  font-size: $font-md;
+  color: $text-primary;
+  font-weight: 500;
+  line-height: 1.8;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.example-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-sm;
+}
+
+.example-option {
+  font-size: $font-xs;
+  color: $text-secondary;
+  background: $bg-page;
+  padding: 8rpx 20rpx;
+  border-radius: 24rpx;
+}
+
+.example-answer {
+  background: rgba(39, 174, 96, 0.06);
+  border-left: 6rpx solid $success;
+  border-radius: 0 $border-radius $border-radius 0;
+  padding: $spacing-sm $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.answer-label {
+  font-size: $font-md;
+  color: $success;
+  font-weight: 600;
+  display: block;
+}
+
+.answer-explain {
+  font-size: $font-xs;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin-top: 6rpx;
+  display: block;
+}
+
+.example-footer {
+  text-align: center;
+}
+
+.reveal-btn {
+  font-size: $font-sm;
+  color: $primary;
+}
+
+.start-practice-btn {
+  width: 100%;
+  background: linear-gradient(135deg, $primary, $primary-dark);
+  color: #fff;
+  font-size: $font-md;
+  font-weight: 600;
+  border-radius: 48rpx;
+  padding: 24rpx 0;
+  margin-top: $spacing-sm;
+  border: none;
 }
 </style>
